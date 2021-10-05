@@ -14,6 +14,13 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    /*
+    롬복은 컴파일 시점에서 코드가 생성되어야 하므로
+    - implementation(X)
+    annotationProcessor, compileOnly 두개를 설정
+    */
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
