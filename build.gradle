@@ -15,12 +15,19 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     /*
-    롬복은 컴파일 시점에서 코드가 생성되어야 하므로
+    1. 롬복은 컴파일 시점에서 코드가 생성되어야 하므로
     - implementation(X)
     annotationProcessor, compileOnly 두개를 설정
     */
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     compileOnly 'org.projectlombok:lombok:1.18.20'
+    /* jwt 관련 설정 */
+    implementation 'javax.xml.bind:jaxb-api'
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    /* 끝 */
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
