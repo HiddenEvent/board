@@ -39,15 +39,12 @@ public class SecurityService {
         eyJhbGciOiJIUzI1NiJ9.  --> Header 값이 들어감
         eyJzdWIiOiJrYW5nIiwiZXhwIjoxNjMzNjE1MTYyfQ. --> palyload(claim) 값이 들어감
         A0LZwmgfwxJd1WJCvI1QV_j7P0L9MNHYKo-1k20UZz0 --> 서명(암호화)값이 들어감
-
-        1. 콤마를 구분자로 3개의 구문으로 생성됨
-
         */
 
 
     }
     public String getSubject(String token) {
-        /* Claims : 페이로드된 데이터 정보를 가져오는 인텋페이스 */
+        /* Claims : 페이로드된 데이터 정보를 가져오는 인터페이스 */
         /* - 페이로드(payload)란?  전송되는 데이터를 의미합니다.
         데이터를 전송할 때, 헤더와 메타데이터, 에러 체크 비트 등과 같은 다양한 요소들을 함께 보내어,
         데이터 전송의 효율과 안정성을 높히게 됩니다. 이 때, 보내고자 하는 데이터 자체를 의미하는 것이 바로 페이로드입니다.
@@ -58,5 +55,13 @@ public class SecurityService {
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+    }
+
+    public Claims getClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }
