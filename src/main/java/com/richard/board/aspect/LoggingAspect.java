@@ -2,6 +2,7 @@ package com.richard.board.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -20,19 +21,22 @@ public class LoggingAspect {
         System.out.println("get 으로 시작되는 메서드 끝");
     }
 
-//    public Object loggerAround(ProceedingJoinPoint pjp) throws Throwable {
-//        long beforeTimeMillis = System.currentTimeMillis();
-//        System.out.println("[UserController] 실행시작 : "
-//                + pjp.getSignature().getDeclaringTypeName() + "."
-//                + pjp.getSignature().getName()
-//        );
-//        Object result = pjp.proceed();
-//
-//        long afterTimeMillis = System.currentTimeMillis() - beforeTimeMillis;
-//        System.out.println(
-//                "[UserController] 시"
-//
-//        );
-//    }
+    @Around("execution(* com.richard.board.controller.UserController.*(..))")
+    public Object loggerAround(ProceedingJoinPoint pjp) throws Throwable {
+        long beforeTimeMillis = System.currentTimeMillis();
+        System.out.println("[UserController] 실행시작 : "
+                + pjp.getSignature().getDeclaringTypeName() + "."
+                + pjp.getSignature().getName()
+        );
+        Object result = pjp.proceed();
+
+        long afterTimeMillis = System.currentTimeMillis() - beforeTimeMillis;
+        System.out.println(
+                "[UserController] 실행 완료 : " + afterTimeMillis + " 밀리초 소요 "
+                +pjp.getSignature().getDeclaringTypeName() + "."
+                +pjp.getSignature().getName()
+        );
+        return result;
+    }
 
 }
