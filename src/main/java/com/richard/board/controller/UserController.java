@@ -1,5 +1,6 @@
 package com.richard.board.controller;
 
+import com.richard.board.aspect.TokenRequired;
 import com.richard.board.dto.UserDTO;
 import com.richard.board.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,8 @@ public class UserController {
     public List<UserDTO> getALlUsers() {
         return userService.getAllUsers();
     }
+
+    @TokenRequired /* jwt Token 인증된 상태만 접근 가능*/
     @GetMapping("/{userId}")
     public UserDTO getUserByUserId(@PathVariable  String userId) {
         return userService.getUserByUserId(userId);
